@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Economic indicators in Ukraine</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="styles.css" rel="stylesheet" type="text/css">
+        <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-database.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyASZAThdTL3kEV6z744ZyMBbY3JHSS_8Vw",
+                authDomain: "test-task-3.firebaseapp.com",
+                databaseURL: "https://test-task-3.firebaseio.com",
+                projectId: "test-task-3",
+                storageBucket: "test-task-3.appspot.com",
+                messagingSenderId: "291251276189"
+            };
+            firebase.initializeApp(config);
+        </script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="header"><div class="header-logo"><img src="logo.png" width="70"></div><h1 class="header-title">ECONOMIC INDICATORS IN UKRAINE <br> (STATISTICS AND ANALYTICS)</h1>
+            <div><ul class="main-menu">
+            <li><a href="#s">Statistics</a>
+                <ul class="sub-menu">
+                    <li><a href="#1">Industrial production</a></li>
+                    <li><a href="#2">Real GDP</a></li>
+                    <li><a href="#3">Agricultural production</a></li>
+                    <li><a href="#4">Consumer price index</a></li>
+                    <li><a href="#5">Producer price index</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#a">Analytics</a>
+                <ul class="sub-menu">
+                    <li><a href="#1">Industrial production</a></li>
+                    <li><a href="#2">Real GDP</a></li>
+                    <li><a href="#3">Agricultural production</a></li>
+                    <li><a href="#4">Consumer price index</a></li>
+                    <li><a href="#5">Producer price index</a></li>
+                </ul>
+            </li>
+            <li><a href="#c">Contacts</a></li>
+            <li><a href ="javascript:;" onclick="toggleRegistration(true)"><b></b></a></li>
+            </ul>
+            </div></div>
+            <div class="subheader">
+                <form class="signup hidden" onsubmit="signUp(); return false;">
+                <label for="register_login">Login</label>
+                <input type="text" id="register_login" required />
+                <label for="register_password">Password</label>
+                <input type="password" id="register_password" required />
+                <label for="register_confirmation">Confirmation</label>
+                <input type="password" id="register_confirmation" required />
+                <input type="submit" id="register" value="Sign up" />
+                </form>
+                <form class="signin" onsubmit="signIn(); return false;">
+                <label for="auth_login">Login</label>
+                <input type="text" id="auth_login" required />
+                <label for="auth_password">Password</label>
+                <input type="password" id="auth_password" required />
+                <input type="submit" id="auth" value="Sign in" />
+                </form>
+                <div class="greeting hidden"><span></span><button type="button" class="signout" onclick="signOut()">Sign out</button></div>
+                <button type="button" id="burger" onclick="toggleSidebar()" title="Toggle the sidebar"></button>
+            </div>
+            <div class="content-container">
+                <div id="sidebar" class="sidebar">
+                    <form id="controls" onsubmit="return false;">
+                    <div><label>Font size:</label>
+                    <input type="number" min="8" max="24" id="fontsize" onchange="changeFontSize()"></div>
+                    <div><label>Background color:</label>
+                    <input type="color" id="bgcolor" onchange="changeBackgroundColor()"></div>
+                    <div><label>Font family:<br></label></div>
+                    <div><button type="button" id="remover" onclick="removeLastP()" title="Remove the last 'p' element">&times;</button></div>
+                    </form>
+                </div>
+                <div class="content">
+                    <p>The short-term statistical data on the major economic indicators in Ukraine and analysis of their dynamics are presented on this site. Numerical values of the indicators over the period until 2000 may be of the largest interest for the researchers in the field of economics. More miscellaneous statistical data as to the economic indicators in Ukraine can be found for example on the following official web sites:</p>
+                    
+                    <ul type=circle>
+                    <li> <a href="http://www.ukrstat.gov.ua" target=_blank> 
+                    State Statistics Committee of Ukraine</a></li>
+                    <li> <a href="http://www.bank.gov.ua" target=_blank>National Bank of Ukraine 
+                    </a></li>
+                    <li> <a href="http://www.me.gov.ua" target=_blank>Ministry of Economy of Ukraine 
+                    </a></li>
+                    <li> <a href="http://www.kmu.gov.ua" target=_blank> 
+                    Cabinet of Ministers of Ukraine</a></li>
+                    <li> <a href="http://www.cisstat.org" target=_blank>Interstate Statistical Committee of the CIS Countries</a></li>
+                    </ul>
+                    <p>and, very likely, on some others.</p>
+                    
+                    <p>Working with the short-term statistical data in the first 
+                    place concerned the volumes of total output (agricultural 
+                    production, industrial production, real GDP), it is 
+                    necessary to take into account a number of practical aspects. 
+                    Above all the officially disseminated monthly indices are 
+                    advance (or preliminary) estimates and may be revised later, 
+                    sometimes changing considerably enough. Such revisions are 
+                    applied to yearly and quarterly, but not monthly values of 
+                    the economic indicators, so the true short-term dynamics of 
+                    the studied indicators is covert to a greater or lesser 
+                    extent by inevitably appearing errors. Secondly, in the 
+                    analytical practice adopted on the top state level the 
+                    short-term tendencies of economic growth, as a rule, are not 
+                    analyzed on the ground of base values (base indices, base 
+                    growth coefficients) that is on the ground of time series 
+                    of the respective major economic indicators. Instead 
+                    certain relative values called "indices" are engaged, and 
+                    namely &ndash; the growth rates to the corresponding period 
+                    of the previous year (naturally, formulated so as a 
+                    multiplicative type seasonality would be eliminated). For 
+                    the goals of short-term dynamics analysis such an approach 
+                    apparently is not correct because one of the principal 
+                    disadvantages of these indices consists in their equally 
+                    strong dependence both on the actual (current) level of 
+                    the economic indicator and on its level precisely one year 
+                    ago. Thirdly, if one did succeed in getting the time series 
+                    of interesting indicator detailed by months, the short-term 
+                    changes may be interpreted only in the case of adjusted 
+                    seasonal component. This, in its queue, requires from an 
+                    analyst choosing the most appropriate methods of seasonal 
+                    adjustment and carrying out the additional calculations, 
+                    probably, bringing thereby a certain element of subjectivity 
+                    in the final results.</p>
+                    
+                    <p>The author of this web site is sincerely confirmed that the 
+                    information placed in his own section <b>"Analytics"</b>
+                    differs radically from the officially disseminated data in 
+                    Ukraine, i.e. the section <b>"Statistics"</b> (but 
+                    nevertheless constructed on the official data basis). At 
+                    the same time it helps not only to identify much more 
+                    exactly the current situation in the country, but also 
+                    allows to make right, well-grounded decisions.</p>
+                </div>
+            </div>
+            <div class="footer"><div class="footer-author">&copy; &nbsp; Alexander Varfolomieiev,&nbsp; 2018<address><br><a href="mailto:mymailhere@gmail.com">mymailhere@gmail.com</a> </address></div><div class="footer-moddate"><br><br>Last modified: 24/02/2018</div><div class="clearfix"></div></div>
+        </div>
+    </body>
+    <script src="script.js"></script>
+</html>
